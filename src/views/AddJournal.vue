@@ -7,7 +7,7 @@
  *
  */
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import {
   createDirectus,
   uploadFiles,
@@ -18,6 +18,8 @@ import {
 } from "@directus/sdk";
 import { useRouter, useRoute } from "vue-router";
 
+export default {
+    setup() {
 const router = useRouter();
 const route = useRoute();
 const journalId = ref(route.query.journalId);
@@ -128,6 +130,19 @@ const handleSubmit = async () => {
   } finally {
     isLoading.value = false;
   }
+};
+return {
+      title,
+      description,
+      photo,
+      country,
+      city,
+      photoPreview,
+      isLoading,
+      handleFile,
+      handleSubmit,
+    };
+  },
 };
 </script>
 

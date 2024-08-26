@@ -8,7 +8,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { createDirectus, authentication, rest, login } from "@directus/sdk";
+import { createDirectus, authentication, rest } from "@directus/sdk";
 
 const email = ref("");
 const password = ref("");
@@ -16,16 +16,17 @@ const password = ref("");
 const router = useRouter();
 
 const directus = createDirectus("https://admin.roteirosurbanos.com.br/")
-  .with(authentication("json"))
+  .with(authentication())
   .with(rest());
 
 const handleLogin = async () => {
   try {
-    const response = await directus.request(login(email.value, password.value));
+    const response = await directus.auth.login({ email: email.value, password: password.value });
     console.log("Authentication successful", response);
-    router.push({ name: "addjournal" });
+    console.log(directus);
     if (response.access_token) {
       localStorage.setItem("userToken", response.access_token);
+      router.push({ name: "addjournal" });
     }
   } catch (error) {
     console.error("Authentication failed:", error);
