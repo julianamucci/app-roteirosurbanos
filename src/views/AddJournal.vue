@@ -30,10 +30,10 @@ const photoPreview = ref(null);
 const isLoading = ref(false);
 
 const getImageUrl = (imageId) => {
-  return `YOUR_DIRECTUS_PROJECT_URL/assets/${imageId}`;
+  return `https://admin.roteirosurbanos.com.br/assets/${imageId}`;
 };
 
-const client = createDirectus("YOUR_DIRECTUS_PROJECT_URL").with(rest());
+const client = createDirectus("https://admin.roteirosurbanos.com.br/").with(rest());
 
 watch(
   journalId,
